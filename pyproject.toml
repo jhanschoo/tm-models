@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tm-models"
+dynamic = ["version"]
+description = 'A collection of Turing Machine variants'
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Johannes Choo", email = "jhanschoo@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/Johannes Choo/tm-models#readme"
+Issues = "https://github.com/Johannes Choo/tm-models/issues"
+Source = "https://github.com/Johannes Choo/tm-models"
+
+[tool.hatch.version]
+path = "src/tm_models/__about__.py"
+
+[tool.hatch.envs.default]
+types = "virtual"
+python = "3.12"
+
+[tool.hatch.envs.types]
+types = "virtual"
+python = "3.12"
+extra-dependencies = [
+  "pyright>=1.1.300",
+]
+[tool.hatch.envs.types.scripts]
+check = """pyright --pythonpath="$(hatch run default:python -c 'import sys; print(sys.executable)')" {args:src/ tests/}
+"""
+
+[tool.coverage.run]
+source_pkgs = ["tm_models", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/tm_models/__about__.py",
+]
+
+[tool.coverage.paths]
+tm_models = ["src/tm_models", "*/tm-models/src/tm_models"]
+tests = ["tests", "*/tm-models/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
