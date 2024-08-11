@@ -21,7 +21,7 @@ class IgnorantInstrSOracle[Gamma](SInstrOracleABC[Never, Gamma]):
     """
 
     # alphabet cannet be a set, but must be a sequence type due to random.choice
-    def __init__(self, time: int, alphabet: tuple[Gamma], it: Optional[Iterable[Instr[Gamma]]]) -> None:
+    def __init__(self, time: int, alphabet: tuple[Gamma], it: Optional[Iterable[Instr[Gamma]]]=None) -> None:
         assert time >= 0
         self.t_bound = time
         self.t = 0

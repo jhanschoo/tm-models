@@ -1,14 +1,11 @@
-from typing import Optional, TypedDict
+from typing import Optional
 
+from tm_models.tapes import STapeDataclass
+from tm_models.tapes.STapeDataclass import STapeDataclass
 from tm_models.typing import Instr
 
 type Stack[Gamma] = tuple[Optional[Gamma], Stack[Gamma]] | tuple[()]
 type TStack[Gamma] = tuple[Stack[Gamma], Optional[Gamma], Stack[Gamma]]
-
-class STapeDict[Gamma](TypedDict):
-    tape: list[Optional[Gamma]]
-    start_pos: int
-    pos: int
 
 class STape[Gamma]:
     """A class modeling a blank-agnostic TM Tape.
@@ -55,41 +52,23 @@ class STape[Gamma]:
         if d == 'N':
             self.state = left, h, right
 
-    def as_dict(self) -> STapeDict[Gamma]:
+    def as_dataclass(self) -> STapeDataclass[Gamma]:
         left, h, right = self.state
-        tape: list[Optional[Gamma]] = []
+        L: Optional[Gamma] = []
         while left:
-            tape.append(left[0])
+            L.append(left[0])
             left = left[1]
-        tape.reverse()
-        start_pos = len(tape) - self.pos
-        pos = len(tape)
-        tape.append(h)
+        R: Optional[Gamma] = []
         while right:
-            tape.append(right[0])
+            R.append(right[0])
             right = right[1]
-        return({
-            "tape": tape,
-            "pos": pos,
-            "start_pos": start_pos
-        })
+        return STapeDataclass(L, R, h, self.pos)
 
     def __repr__(self):
-        d = self.as_dict()
-        return str(((d["start_pos"], d["pos"]), d["tape"]))
+        return repr(self.as_dataclass())
 
     def __str__(self):
-        d = self.as_dict()
-        t = d["tape"]
-        elems = []
-        for i in range(len(t)):
-            e = str(t[i])
-            if i == d["start_pos"]:
-                e = '.' + e + '.'
-            if i == d["pos"]:
-                e = '^' + e + '^'
-            elems.append(e)
-        return '[' + ', '.join(elems) + ']'
+        return str(self.as_dataclass())
 
 if __name__ == "__main__":
     import doctest

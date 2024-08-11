@@ -34,12 +34,20 @@ path = "src/tm_models/__about__.py"
 types = "virtual"
 python = "3.12"
 
+[tool.hatch.envs.test]
+types = "virtual"
+python = "3.12"
+
+[tool.hatch.envs.test.scripts]
+test = """python -m unittest discover tests"""
+
 [tool.hatch.envs.types]
 types = "virtual"
 python = "3.12"
 extra-dependencies = [
   "pyright>=1.1.300",
 ]
+
 [tool.hatch.envs.types.scripts]
 check = """pyright --pythonpath="$(hatch run default:python -c 'import sys; print(sys.executable)')" {args:src/ tests/}
 """
