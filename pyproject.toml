@@ -20,7 +20,9 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+  "leanblueprint>=0.0.14"
+]
 
 [project.urls]
 Documentation = "https://github.com/Johannes Choo/tm-models#readme"
