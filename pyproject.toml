@@ -25,9 +25,9 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/Johannes Choo/tm-models#readme"
-Issues = "https://github.com/Johannes Choo/tm-models/issues"
-Source = "https://github.com/Johannes Choo/tm-models"
+Documentation = "https://github.com/jhanschoo/tm-models#readme"
+Issues = "https://github.com/jhanschoo/tm-models/issues"
+Source = "https://github.com/jhanschoo/tm-models"
 
 [tool.hatch.version]
 path = "src/tm_models/__about__.py"
