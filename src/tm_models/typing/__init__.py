@@ -3,7 +3,7 @@ from typing import Literal, Optional
 Direction = Literal['L', 'R', 'N']
 BinDirection = Literal['L', 'R']
 
-Status = Literal[
+StdStatus = Literal[
     # Active. Unless otherwise specified,
     #   the host should be ready for 'A', 'T', 'F', or 'W' to be reported next tick.
     #   The program may expect the host to continue passing it while it reports 'A'; it may

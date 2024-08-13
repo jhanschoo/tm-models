@@ -3,7 +3,7 @@ from tm_models.oracles.SInstrOracleABC import SInstrOracleABC
 from tm_models.typing import KInstr
 
 
-class InstrOracleParallelizer[Gamma, Mu](KInstrOracleABC[Gamma, tuple[Mu, ...]]):
+class InstrOracleParallelizer[Gamma, Rho](KInstrOracleABC[Gamma, tuple[Rho, ...]]):
     """A KInstrOracleABC oracle initialized with a list of SInstrOracleABC
     that calls each oracle one after the other with the k-tuple input. This means that you can pass
     the same SInstrOracleABC in a list to adapt it to emit k-tape instructions.
@@ -18,12 +18,12 @@ class InstrOracleParallelizer[Gamma, Mu](KInstrOracleABC[Gamma, tuple[Mu, ...]])
     """
 
     # alphabet cannet be a set, but must be a sequence type due to random.choice
-    def __init__(self, oracles: list[SInstrOracleABC[Gamma, Mu]]) -> None:
+    def __init__(self, oracles: list[SInstrOracleABC[Gamma, Rho]]) -> None:
         self.oracles = oracles
 
-    def __call__(self, msg: tuple[Mu, ...]) -> KInstr[Gamma]:
-        assert len(msg) == len(self.oracles)
-        return tuple(o(m) for m, o in zip(msg, self.oracles))
+    def __call__(self, recv: tuple[Rho, ...]) -> KInstr[Gamma]:
+        assert len(recv) == len(self.oracles)
+        return tuple(o(m) for m, o in zip(recv, self.oracles))
 
     @property
     def num_heads(self):

@@ -43,11 +43,11 @@ class LogSTape[Gamma]:
     ((1, 1), ['c', 'a'])
     """
 
-    def __init__(self, time_exponent: int, msg: list[Gamma] = []) -> None:
+    def __init__(self, time_exponent: int, recv: list[Gamma] = []) -> None:
         self.t_exp = time_exponent + 1
         self.t_bound = 2 ** self.t_exp
         self.t = 0
-        self.Z: Optional[Gamma] = msg[0] if msg else None
+        self.Z: Optional[Gamma] = recv[0] if recv else None
         self.pos: int = 0
 
         self.R: _HTape[Gamma] = _HTape(
@@ -61,15 +61,15 @@ class LogSTape[Gamma]:
         i = 1
         # rz: Zone[Gamma]
         for rz in self.R:
-            if i >= min(len(msg), self.t_bound):
+            if i >= min(len(recv), self.t_bound):
                 break
             # rhz: HZone[Gamma]
             rhz = rz[-1]
             for j in range(len(rhz) - 1, -1, -1):
-                if i >= min(len(msg), self.t_bound):
+                if i >= min(len(recv), self.t_bound):
                     break
                 # rhz[int]: Optional[Wrapped[Gamma]]
-                rhz[j] = (msg[i],)
+                rhz[j] = (recv[i],)
                 i += 1
         #self._assert_self()
 
