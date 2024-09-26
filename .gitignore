@@ -164,3 +164,10 @@ cython_debug/
 # Lean4
 
 .lake/
+
+## leanblueprint generated files
+*.paux
+/blueprint/print
+/blueprint/web
+## from checkdecls as invoked by leanblueprint
+/blueprint/lean_decls

@@ -20,9 +20,6 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = [
-  "leanblueprint>=0.0.14"
-]
 
 [project.urls]
 Documentation = "https://github.com/jhanschoo/tm-models#readme"
@@ -53,6 +50,18 @@ extra-dependencies = [
 [tool.hatch.envs.types.scripts]
 check = """pyright --pythonpath="$(hatch run default:python -c 'import sys; print(sys.executable)')" {args:src/ tests/}
 """
+
+[tool.hatch.envs.leanblueprint]
+types = "virtual"
+python = "3.12"
+extra-dependencies = [
+  "leanblueprint>=0.0.14"
+]
+
+[tool.hatch.envs.leanblueprint.scripts]
+all = """leanblueprint all"""
+checkdecls = """leanblueprint checkdecls"""
+serve = """leanblueprint serve"""
 
 [tool.coverage.run]
 source_pkgs = ["tm_models", "tests"]

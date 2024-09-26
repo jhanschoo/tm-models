@@ -1,22 +1,21 @@
 import Lake
 open Lake DSL
 
-package «tm-models» where
-  -- add package configuration options here
+package "tm-models" where
+  version := v!"0.1.0"
+  keywords := #["math"]
+  leanOptions := #[
+    ⟨`pp.unicode.fun, true⟩ -- pretty-prints `fun a ↦ b`
+  ]
 
-lean_lib «TmModels» where
-  -- add library configuration options here
+require "leanprover-community" / "mathlib"
 
-@[default_target]
-lean_exe «tm-models» where
-  root := `Main
-  -- Enables the use of the Lean interpreter by the executable (e.g.,
-  -- `runFrontend`) at the expense of increased binary size on Linux.
-  -- Remove this line if you do not need such functionality.
-  supportInterpreter := true
-
+-- checkdecls is used by leanblueprint
 require checkdecls from git "https://github.com/PatrickMassot/checkdecls.git"
 
-meta if get_config? env = some "dev" then
-require «doc-gen4» from git
-  "https://github.com/leanprover/doc-gen4" @ "main"
+meta if get_config? env = some "dev" then -- dev is so not everyone has to build it
+  require "leanprover" / "doc-gen4"
+
+@[default_target]
+lean_lib «TmModels» where
+  -- add any library configuration options here
